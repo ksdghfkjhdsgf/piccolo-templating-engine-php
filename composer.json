@@ -1,0 +1,25 @@
+{
+	"name": "opsbears/piccolo-templating-engine-php",
+	"license": "MIT",
+	"autoload": {
+		"psr-4": {
+			"Piccolo\\Templating\\Engine\\PHP\\": "./src"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Piccolo\\Templating\\Engine\\PHP\\": "./tests"
+		}
+	},
+	"provide": {
+		"opsbears/piccolo-templating-engine": "1.0.0"
+	},
+	"require": {
+		"php": "^7.0",
+		"opsbears/piccolo-templating": "^1.0"
+	},
+	"require-dev": {
+		"opsbears/piccolo-dev-tools": "^1.0"
+	},
+	"minimum-stability": "dev"
+}
