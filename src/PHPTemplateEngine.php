@@ -3,6 +3,7 @@
 namespace Piccolo\Templating\Engine\PHP;
 
 use Piccolo\Templating\TemplateEngine;
+use Piccolo\Templating\TemplateNotFoundException;
 
 /**
  * This class is a template engine provider that utilizes the plain PHP template engine to render templates.
@@ -11,7 +12,7 @@ use Piccolo\Templating\TemplateEngine;
  *
  * fooController.php
  * ```
- * <?php $templateLayout = 'baseLayout'; ?>
+ * <?php $this->setLayout('baseLayout'); ?>
  * <h1>Piccolo Application</h1>
  * ```
  *
@@ -33,6 +34,11 @@ use Piccolo\Templating\TemplateEngine;
 class PHPTemplateEngine implements TemplateEngine
 {
     /**
+     * @var string
+     */
+    private $templateLayout;
+
+    /**
      * {@inheritdoc}
      */
     public function getExtension() : string
@@ -51,15 +57,24 @@ class PHPTemplateEngine implements TemplateEngine
         require_once \realpath($fileName);
         $templateContent = ob_get_clean();
 
-        if (isset($templateLayout)) {
-            $layoutFileName = \realpath($templateRoot) . DIRECTORY_SEPARATOR . $templateLayout
-                . '.' . $this->getExtension();
+        if ($this->templateLayout) {
+            $layoutFileName = \realpath($templateRoot) . DIRECTORY_SEPARATOR . $this->templateLayout .
+                '.' . $this->getExtension();
 
-            if (file_exists($layoutFileName)) {
+            if (is_file($layoutFileName) && is_readable($layoutFileName)) {
                 require_once $layoutFileName;
                 $templateContent = ob_get_clean();
+            } else {
+                throw new TemplateNotFoundException('Layout ' . $this->templateLayout .
+                    ' not found in directory ' . $templateRoot);
             }
         }
+
         return $templateContent;
+    }
+
+    public function setLayout($templateLayout)
+    {
+        $this->templateLayout = $templateLayout;
     }
 }
