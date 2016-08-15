@@ -51,19 +51,19 @@ class PHPTemplateEngine implements TemplateEngine
      */
     public function renderFile(string $templateRoot, string $fileName, array $data) : string
     {
-        extract($data, EXTR_SKIP);
+        \extract($data, EXTR_SKIP);
 
-        ob_start();
+        \ob_start();
         require_once \realpath($fileName);
-        $templateContent = ob_get_clean();
+        $templateContent = \ob_get_clean();
 
         if ($this->templateLayout) {
             $layoutFileName = \realpath($templateRoot) . DIRECTORY_SEPARATOR . $this->templateLayout .
                 '.' . $this->getExtension();
 
-            if (is_file($layoutFileName) && is_readable($layoutFileName)) {
+            if (\is_file($layoutFileName) && \is_readable($layoutFileName)) {
                 require_once $layoutFileName;
-                $templateContent = ob_get_clean();
+                $templateContent = \ob_get_clean();
             } else {
                 throw new TemplateNotFoundException('Template layout ' . $this->templateLayout .
                     ' not found in directory ' . $templateRoot);
