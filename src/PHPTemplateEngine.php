@@ -73,7 +73,7 @@ class PHPTemplateEngine implements TemplateEngine
         return $templateContent;
     }
 
-    private function setLayout($templateLayout)
+    private function setLayout(string $templateLayout)
     {
         $this->templateLayout = $templateLayout;
     }
