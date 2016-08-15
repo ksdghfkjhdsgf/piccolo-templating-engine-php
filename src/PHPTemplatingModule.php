@@ -30,9 +30,7 @@ class PHPTemplatingModule extends AbstractModule
      */
     public function getRequiredModules() : array
     {
-        return [
-            TemplatingModule::class
-        ];
+        return [];
     }
 
     /**
@@ -41,7 +39,9 @@ class PHPTemplatingModule extends AbstractModule
     public function loadConfiguration(array &$moduleConfig, array &$globalConfig)
     {
         parent::loadConfiguration($moduleConfig, $globalConfig);
-
+        if (! isset($globalConfig['templating']['engines'])) {
+            $globalConfig['templating']['engines'] = [];
+        }
         $globalConfig['templating']['engines'][] = PHPTemplateEngine::class;
     }
 
