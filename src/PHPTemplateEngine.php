@@ -65,7 +65,7 @@ class PHPTemplateEngine implements TemplateEngine
                 require_once $layoutFileName;
                 $templateContent = ob_get_clean();
             } else {
-                throw new TemplateNotFoundException('Layout ' . $this->templateLayout .
+                throw new TemplateNotFoundException('Template layout ' . $this->templateLayout .
                     ' not found in directory ' . $templateRoot);
             }
         }
@@ -73,7 +73,7 @@ class PHPTemplateEngine implements TemplateEngine
         return $templateContent;
     }
 
-    public function setLayout($templateLayout)
+    private function setLayout($templateLayout)
     {
         $this->templateLayout = $templateLayout;
     }
