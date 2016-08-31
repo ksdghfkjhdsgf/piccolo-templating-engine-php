@@ -3,6 +3,8 @@
 namespace Piccolo\Templating\Engine\PHP;
 
 use Piccolo\Templating\TemplateEngine;
+use Piccolo\Templating\TemplateFilter;
+use Piccolo\Templating\TemplateFunction;
 use Piccolo\Templating\TemplateNotFoundException;
 
 /**
@@ -49,7 +51,10 @@ class PHPTemplateEngine implements TemplateEngine
     /**
      * {@inheritdoc}
      */
-    public function renderFile(string $templateRoot, string $fileName, array $data) : string
+    public function renderFile(string $templateRoot,
+                               string $fileName,
+                               array $data,
+                               array $templateRoots = []) : string
     {
         \extract($data, EXTR_SKIP);
 
@@ -73,8 +78,27 @@ class PHPTemplateEngine implements TemplateEngine
         return $templateContent;
     }
 
+    /**
+     * @param string $templateLayout
+     */
     private function setLayout(string $templateLayout)
     {
         $this->templateLayout = $templateLayout;
+    }
+
+    /**
+     * @param TemplateFilter $filter
+     */
+    public function registerFilter(TemplateFilter $filter)
+    {
+
+    }
+
+    /**
+     * @param TemplateFunction $function
+     */
+    public function registerFunction(TemplateFunction $function)
+    {
+
     }
 }
