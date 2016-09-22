@@ -1,9 +1,14 @@
 {
-	"name": "liebigzs/piccolo-templating-engine-php",
+	"name": "opsbears/piccolo-templating-engine-php",
 	"license": "MIT",
 	"autoload": {
 		"psr-4": {
 			"Piccolo\\Templating\\Engine\\PHP\\": "./src"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Piccolo\\Templating\\Engine\\PHP\\": "./tests"
 		}
 	},
 	"provide": {
